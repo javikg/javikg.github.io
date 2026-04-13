@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Javier Artiles — Automatización & IA</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0f11;
+  --surface: #161719;
+  --border: #2a2b2e;
+  --accent: #00d4a0;
+  --accent2: #6c63ff;
+  --text: #e8e9eb;
+  --muted: #6b6e75;
+  --tag-bg: #1e2023;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+a { color: var(--accent); text-decoration: none; }
+
+/* HEADER */
+header {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 80px 24px 60px;
+  border-bottom: 1px solid var(--border);
+}
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.name-block {}
+.label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+h1 {
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text);
+}
+h1 span { color: var(--accent); }
+.tagline {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 480px;
+  line-height: 1.7;
+}
+.contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.contact-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+.contact-item span { color: var(--text); }
+
+.stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.stat-num {
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.stat-num em { color: var(--accent); font-style: normal; }
+.stat-lbl {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* NAV */
+nav {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+}
+nav a {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+nav a:hover, nav a.active { color: var(--accent); }
+
+/* SECTION */
+section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.sec-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+h2 {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.sec-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+}
+
+/* PROJECTS */
+.projects { display: flex; flex-direction: column; gap: 2px; }
+.project {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 32px;
+  transition: border-color 0.2s;
+  animation: fadeUp 0.5s ease both;
+}
+.project:hover { border-color: #3a3b3e; }
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.project-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text);
+}
+.project-client {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.project-result {
+  background: rgba(0,212,160,0.08);
+  border: 1px solid rgba(0,212,160,0.2);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.project-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+}
+.skill-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.skill-items {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* PROCESS */
+.process { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  width: 28px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.step-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.step-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* CONTACT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.contact-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+.contact-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.contact-card-value {
+  font-size: 15px;
+  color: var(--text);
+}
+
+/* FOOTER */
+footer {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+.footer-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.footer-links a:hover { color: var(--accent); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.project:nth-child(1) { animation-delay: 0.05s; }
+.project:nth-child(2) { animation-delay: 0.1s; }
+.project:nth-child(3) { animation-delay: 0.15s; }
+.project:nth-child(4) { animation-delay: 0.2s; }
+
+@media (max-width: 600px) {
+  h1 { font-size: 28px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-block { align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="name-block">
+      <div class="label">Portfolio · Automatización & IA</div>
+      <h1>Javier Artiles<br><span>Rodríguez</span></h1>
+      <p class="tagline">Desarrollo automatizaciones que eliminan trabajo manual. Integro sistemas, APIs e IA para que los procesos funcionen solos.</p>
+    </div>
+    <div class="contact-block">
+      <div class="contact-item">📧 <span>a3javier.artiles@gmail.com</span></div>
+      <div class="contact-item">📱 <span>699 252 275</span></div>
+      <div class="contact-item">📍 <span>Sevilla, España</span></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div>
+      <div class="stat-num">4<em>+</em></div>
+      <div class="stat-lbl">años de experiencia</div>
+    </div>
+    <div>
+      <div class="stat-num">15<em>+</em></div>
+      <div class="stat-lbl">proyectos completados</div>
+    </div>
+    <div>
+      <div class="stat-num">3<em></em></div>
+      <div class="stat-lbl">empresas · stack real</div>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="#proyectos" class="active">Proyectos</a>
+  <a href="#skills">Skills</a>
+  <a href="#proceso">Proceso</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
+<section id="proyectos">
+  <div class="sec-header">
+    <span class="sec-num">01</span>
+    <h2>Proyectos seleccionados</h2>
+  </div>
+  <div class="projects">
+
+    <div class="project">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Automatización de gestión de pedidos</div>
+          <div class="project-client">Empresa de distribución · Sevilla</div>
+        </div>
+        <div class="project-result">−12h/semana de trabajo manual</div>
+      </div>
+      <p class="project-desc">Pipeline completo que recoge pedidos de email y formulario web, los procesa y los vuelca automáticamente en el ERP de la empresa. Incluye notificaciones por Telegram al equipo de almacén y generación automática de albaranes en PDF.</p>
+      <div class="tags">
+        <span class="tag">n8n</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Telegram API</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">PDF generation</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Dashboard de ventas en tiempo real</div>
+          <div class="project-client">Cadena de tiendas · Andalucía</div>
+        </div>
+        <div class="project-result">Datos actualizados cada 15 min</div>
+      </div>
+      <p class="project-desc">Integración entre el TPV de 5 tiendas y un dashboard centralizado en Power BI. ETL automatizado que consolida ventas, stock y KPIs en tiempo real, sustituyendo el reporte manual diario que hacía el equipo comercial.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">ETL</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">Oracle SQL</span>
+        <span class="tag">n8n</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Bot de atención y clasificación de incidencias</div>
+          <div class="project-client">Empresa de servicios · remoto</div>
+        </div>
+        <div class="project-result">−80% tiempo de clasificación</div>
+      </div>
+      <p class="project-desc">Bot conectado al email de soporte que usa IA para leer, clasificar y asignar automáticamente cada incidencia al técnico correcto. Genera un ticket en el sistema interno y avisa al cliente con un acuse de recibo personalizado.</p>
+      <div class="tags">
+        <span class="tag">Claude API</span>
+        <span class="tag">n8n</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">IMAP/SMTP</span>
+        <span class="tag">Webhooks</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Integración ERP ↔ plataforma de ecommerce</div>
+          <div class="project-client">Tienda online · España</div>
+        </div>
+        <div class="project-result">Sync automático bidireccional</div>
+      </div>
+      <p class="project-desc">Sincronización en tiempo real entre PrestaShop y el ERP interno de la empresa. Stock, precios y estado de pedidos se actualizan automáticamente en ambas direcciones, eliminando la doble introducción de datos y los errores asociados.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">PrestaShop API</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">Cron jobs</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <div class="sec-header">
+    <span class="sec-num">02</span>
+    <h2>Stack técnico</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-name">Automatización</div>
+      <div class="skill-items">n8n<br>Python scripts<br>Cron / schedulers<br>Webhooks</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">Bases de datos</div>
+      <div class="skill-items">Oracle SQL<br>MySQL<br>ETL pipelines<br>Data modeling</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">APIs & integración</div>
+      <div class="skill-items">REST APIs<br>Web Services<br>Telegram Bot<br>Google Sheets API</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">IA aplicada</div>
+      <div class="skill-items">Claude API<br>OpenAI API<br>Clasificación de texto<br>Generación automática</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">Lenguajes</div>
+      <div class="skill-items">Python<br>JavaScript (ES6+)<br>Java · PHP<br>HTML5 · CSS3</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">Reporting</div>
+      <div class="skill-items">Power BI<br>Dashboards web<br>KPIs & métricas<br>Informes automáticos</div>
+    </div>
+  </div>
+</section>
+
+<section id="proceso">
+  <div class="sec-header">
+    <span class="sec-num">03</span>
+    <h2>Cómo trabajo</h2>
+  </div>
+  <div class="process">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">Llamada de diagnóstico (15 min)</div>
+        <div class="step-desc">Entiendo el proceso actual, dónde está el cuello de botella y si tiene sentido automatizarlo. Sin compromiso.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">Propuesta concreta</div>
+        <div class="step-desc">Envío un presupuesto detallado con alcance, plazo y precio fijo. Sin sorpresas al final.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">Desarrollo y pruebas</div>
+        <div class="step-desc">Construyo la automatización, la pruebo con datos reales y te mantengo al tanto del progreso.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div>
+        <div class="step-title">Entrega y documentación</div>
+        <div class="step-desc">Entrego todo documentado y funcionando. Incluyo soporte post-entrega durante 30 días.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="sec-header">
+    <span class="sec-num">04</span>
+    <h2>Contacto</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-card-label">Email</div>
+      <div class="contact-card-value">a3javier.artiles@gmail.com</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Teléfono</div>
+      <div class="contact-card-value">699 252 275</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Ubicación</div>
+      <div class="contact-card-value">Sevilla, España · remoto disponible</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Disponibilidad</div>
+      <div class="contact-card-value">Proyectos desde €300 · respuesta en 24h</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Javier Artiles Rodríguez · 2025</div>
+  <div class="footer-links">
+    <a href="mailto:a3javier.artiles@gmail.com">email</a>
+    <a href="https://www.malt.es" target="_blank">malt</a>
+  </div>
+</footer>
+
+</body>
+</html>
